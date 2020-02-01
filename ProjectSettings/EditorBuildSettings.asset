@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/HeshScene/HeshScene.unity
+    guid: 85fe0c88e98db40f894dd77de0cf8de6
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: a7a01fc12fba141e2a4e8183cc73612e
   m_configObjects: {}
