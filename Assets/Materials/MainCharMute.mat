@@ -31,6 +31,7 @@ Material:
     - _FresnelBias: 0.01
     - _FresnelIntensity: 4.41
     - _FresnelPow: 5.74
+    - _HitAmount: 0
     - _NoiseAmp: 0.161
     - _NoiseFreq: 0.53
     - _ReflectionIntensity: 1.81
@@ -40,3 +41,4 @@ Material:
     - _SpikePow: 4
     m_Colors:
     - _EnvCubeRotation: {r: 1.07, g: 0, b: 0, a: 1}
+    - _HitColor: {r: 1, g: 0.1273585, b: 0.1273585, a: 0}
