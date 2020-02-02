@@ -14,6 +14,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1019858187818095137, guid: c86b0a52d6781ad41b2a24b5bc247a46,
         type: 3}
+      propertyPath: goodVoices.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1019858187818095137, guid: c86b0a52d6781ad41b2a24b5bc247a46,
+        type: 3}
       propertyPath: Voices.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: 956cb4e73b03b4c4e8d0906ac811e2a3, type: 3}
@@ -77,6 +82,11 @@ PrefabInstance:
       propertyPath: Voices.Array.data[12]
       value: 
       objectReference: {fileID: 8300000, guid: 1424fca927725a445bb883b803f498d2, type: 3}
+    - target: {fileID: 1019858187818095137, guid: c86b0a52d6781ad41b2a24b5bc247a46,
+        type: 3}
+      propertyPath: goodVoices.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: d27656ee6d75f464ba1ea6fe1e85301b, type: 3}
     - target: {fileID: 1019858187818095138, guid: c86b0a52d6781ad41b2a24b5bc247a46,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -135,7 +145,7 @@ PrefabInstance:
     - target: {fileID: 1019858187818095164, guid: c86b0a52d6781ad41b2a24b5bc247a46,
         type: 3}
       propertyPath: m_Name
-      value: Family Sounds
+      value: Family Sounds Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c86b0a52d6781ad41b2a24b5bc247a46, type: 3}

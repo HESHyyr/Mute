@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class EnemySounds : MonoBehaviour
 {
-
-    public AudioClip[] Voices;
+    [SerializeField]
+    private AudioClip[] goodVoices;
+    public AudioClip[] badVoices;
     public AudioSource Voice;
 
     public int RandomLine;
-    public float WaitTime = 4.0f;
-    public float WaitTimer = 0.0f;
 
     [Range(0.0f, 1.0f)]
     public float VolumeControl = 0.5f;
@@ -30,8 +29,25 @@ public class EnemySounds : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (WaitTimer <= 0.0f)
+
+    }
+
+    public void playVoice(int triangleType)
+    {
+        if(triangleType == 0)
         {
+            RandomLine = Random.Range(0, badVoices.Length);
+            Voice.clip = badVoices[RandomLine];
+        }
+        else
+        {
+            RandomLine = Random.Range(0, goodVoices.Length);
+            Voice.clip = goodVoices[RandomLine];
+        }
+
+        if (player.GetComponent<PlayerController>().isMuted)
+        {
+<<<<<<< HEAD
             WaitTimer = WaitTime;
             RandomLine = Random.Range(0, Voices.Length);
             Voice.clip = Voices[RandomLine];
@@ -39,10 +55,15 @@ public class EnemySounds : MonoBehaviour
             Voice.volume = MasterVol.VoiceVol;
             
             Voice.Play();
+=======
+            Voice.volume = MuteVolume;
+>>>>>>> b63ec4d7419c853ec8e1df2b9aa562770ed5766a
         }
         else
         {
-            WaitTimer -= 1 * Time.deltaTime;
+            Voice.volume = VolumeControl;
         }
+
+        Voice.Play();
     }
 }

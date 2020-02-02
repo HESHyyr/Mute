@@ -206,3 +206,18 @@ float3 rotate_vector(float3 v, float4 r)
     float4 r_c = r * float4(-1, -1, -1, 1);
     return qmul(r, qmul(float4(v, 0), r_c)).xyz;
 }
+
+float rand(float2 n) { 
+    return frac(sin(dot(n, float2(12.9898 + _Time.x, 4.1414))) * 43758.5453);
+}
+
+float noise(float2 p){
+    float2 ip = floor(p);
+    float2 u = frac(p);
+    u = u*u*(3.0-2.0*u);
+
+    float res = lerp(
+        lerp(rand(ip),rand(ip+float2(1.0,0.0)),u.x),
+        lerp(rand(ip+float2(0.0,1.0)),rand(ip+float2(1.0,1.0)),u.x),u.y);
+    return res*res;
+}
