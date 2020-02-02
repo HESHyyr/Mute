@@ -49,7 +49,7 @@ public class UIManager : MonoBehaviour
 
     public void loadMainGame()
     {
-        SceneManager.LoadScene("HeshScene");
+        SceneManager.LoadScene("Main");
     }
 
     public void loadMainMenu()
