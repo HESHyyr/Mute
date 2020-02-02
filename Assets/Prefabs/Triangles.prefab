@@ -128,6 +128,8 @@ MonoBehaviour:
   talkDistance: 5
   generateEnemyChances: 0.8
   fireCD: 1
+  wanderMode: Circle
+  resetRotationSpeed: 0.01
   goodSound: {fileID: 8300000, guid: d27656ee6d75f464ba1ea6fe1e85301b, type: 3}
   badSound: {fileID: 8300000, guid: b8938e5ace32a43bcb21703f049301c4, type: 3}
   triangleType: 0
