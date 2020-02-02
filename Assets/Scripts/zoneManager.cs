@@ -34,7 +34,7 @@ public class zoneManager : MonoBehaviour
             playerController.currentGoal = gameObject;
     }
 
-    void zoneCleared()
+    public void zoneCleared()
     {
         foreach(GameObject agent in zoneAgents)
             agent.GetComponent<AIController>().repair();
