@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
     public void takeDamage(int number)
     {
-        if(number < 0){
+        if(number > 0){
             EnvironmentController.instance.TakeDamage();
         }
         playerHealth -= number;

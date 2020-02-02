@@ -94,8 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 181cdfdd14dd14fa39aad5093bbde325, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxChaseRange: 10
-  chaseDistance: 6
+  maxChaseRange: 8
+  chaseDistance: 4
   talkDistance: 3
   generateEnemyChances: 0.8
   speakCD: 4
@@ -222,7 +222,7 @@ PrefabInstance:
     - target: {fileID: 2794109987843401135, guid: b1bc06efc4ff39e4a9ef5ae814ff13f1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2794109987843401135, guid: b1bc06efc4ff39e4a9ef5ae814ff13f1,
         type: 3}
@@ -232,22 +232,22 @@ PrefabInstance:
     - target: {fileID: 2794109987843401135, guid: b1bc06efc4ff39e4a9ef5ae814ff13f1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2794109987843401135, guid: b1bc06efc4ff39e4a9ef5ae814ff13f1,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2794109987843401135, guid: b1bc06efc4ff39e4a9ef5ae814ff13f1,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2794109987843401135, guid: b1bc06efc4ff39e4a9ef5ae814ff13f1,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2794109987843401135, guid: b1bc06efc4ff39e4a9ef5ae814ff13f1,
         type: 3}
