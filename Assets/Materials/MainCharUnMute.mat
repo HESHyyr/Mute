@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MainChar
+  m_Name: MainCharUnMute
   m_Shader: {fileID: 4800000, guid: cb7f7b2beda39446da55ca8430d81511, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -28,15 +28,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _FresnelBias: 0
-    - _FresnelIntensity: 3.06
-    - _FresnelPow: 3.76
-    - _NoiseAmp: 0.161
-    - _NoiseFreq: 0.53
-    - _ReflectionIntensity: 1.84
+    - _FresnelBias: 0.75
+    - _FresnelIntensity: 0
+    - _FresnelPow: 3.32
+    - _NoiseAmp: 0.155
+    - _NoiseFreq: 0.554
+    - _ReflectionIntensity: 1.26
     - _Size: 0.5
     - _SpikeAmp: 0
     - _SpikeDensity: 28.1
     - _SpikePow: 4
     m_Colors:
-    - _EnvCubeRotation: {r: 1.07, g: 0, b: 0, a: 1}
+    - _EnvCubeRotation: {r: 18.5, g: 0.5, b: 2.89, a: 1}
