@@ -9,7 +9,7 @@ public class ZoneSounds : MonoBehaviour
 
     private SoundManager MasterVol;
 
-    public float SoundRadius = 30;
+    //public float SoundRadius = 30;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,7 @@ public class ZoneSounds : MonoBehaviour
         Music.volume = MasterVol.MusicVol;
         Ambient.volume = MasterVol.AmbVol;
 
-        Music.maxDistance = SoundRadius;
-        Ambient.maxDistance = SoundRadius;
+        //Music.maxDistance = SoundRadius;
+        //Ambient.maxDistance = SoundRadius;
     }
 }
