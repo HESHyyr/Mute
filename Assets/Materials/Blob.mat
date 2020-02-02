@@ -64,19 +64,20 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _FresnelBias: 1.19
     - _FresnelDensity: 28.1
-    - _FresnelIntensity: 3.23
-    - _FresnelPow: 4.2
+    - _FresnelIntensity: 10
+    - _FresnelPow: 7.87
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
     - _NoiseAmp: 0.127
-    - _NoiseFreq: 0.967
+    - _NoiseFreq: 0.927
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ReflectionIntensity: 1.9
+    - _ReflectionIntensity: 0.27
     - _Size: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1

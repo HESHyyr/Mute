@@ -13,6 +13,7 @@ Shader "Unlit/Blob"
         _EnvCube ("Environment Cube", CUBE) = "" {}
         _ReflectionIntensity ("Reflection Intensity", Range(0,5)) = 0
         _FresnelPow ("Fresnel Pow", Range(0,10)) = 4
+        _FresnelBias ("Fresnel Bias", Range(0,5)) = 0
         _FresnelIntensity ("Fresnel Intensity", Range(0,10)) = 2.8
     }
     SubShader
@@ -56,6 +57,7 @@ Shader "Unlit/Blob"
             float4 _EnvCubeRotation;
             float _ReflectionIntensity;
 
+            float _FresnelBias;
             float _FresnelPow;
             float _FresnelIntensity;
 
@@ -88,8 +90,7 @@ Shader "Unlit/Blob"
                 v2f o;
 
                 float4 distortedVert = v.vertex;
-
-                distortedVert = _Size * v.normal;
+                distortedVert = v.vertex - (0.5 - _Size) * v.normal;
                 float4 noiseInput = _NoiseFreq * v.normal;
                 noiseInput.x += 0.5 * _Time.y;
                 distortedVert += _NoiseAmp * snoise(noiseInput) * v.normal;
@@ -114,7 +115,7 @@ Shader "Unlit/Blob"
                 fixed4 reflectionCol = _ReflectionIntensity * envSample;
 
                 fixed4 col = reflectionCol;
-                fixed4 fresnel = _FresnelIntensity * pow(saturate(1 - dot(i.viewDir, i.normal)), _FresnelPow);
+                fixed fresnel = _FresnelBias + _FresnelIntensity * pow(saturate(1 - dot(i.viewDir, i.normal)), _FresnelPow);
                 // col.xyz += spectral_zucconi6(800 * dot(reflectionDir,float3(1,1,0)) + 20);
                 return fresnel * reflectionCol;
             }
