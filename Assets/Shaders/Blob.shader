@@ -61,29 +61,16 @@ Shader "Unlit/Blob"
             float _FresnelPow;
             float _FresnelIntensity;
 
-            inline fixed3 bump3y (fixed3 x, fixed3 yoffset)
+            //Global params
+            float _Saturation;
+            float3 Grayscale(float3 inputColor)
             {
-                float3 y = 1 - x * x;
-                y = saturate(y-yoffset);
-                return y;
+                float gray = 1.5*pow(dot(inputColor.rgb, float3(0.2126, 0.7152, 0.0722 )),4);
+                return float3(gray, gray, gray);
             }
-            fixed3 spectral_zucconi6 (float w)
+            void GrayscaleAmount(inout float4 inputColor, float amount)
             {
-                // w: [400, 700]
-                // x: [0,   1]
-                fixed x = saturate((w - 400.0)/ 300.0);
-
-                const float3 c1 = float3(3.54585104, 2.93225262, 2.41593945);
-                const float3 x1 = float3(0.69549072, 0.49228336, 0.27699880);
-                const float3 y1 = float3(0.02312639, 0.15225084, 0.52607955);
-
-                const float3 c2 = float3(3.90307140, 3.21182957, 3.96587128);
-                const float3 x2 = float3(0.11748627, 0.86755042, 0.66077860);
-                const float3 y2 = float3(0.84897130, 0.88445281, 0.73949448);
-
-                return
-                bump3y(c1 * (x - x1), y1) +
-                bump3y(c2 * (x - x2), y2) ;
+                inputColor.rgb = lerp(inputColor.rgb, Grayscale(inputColor), amount);
             }
             v2f vert (appdata v)
             {
@@ -114,10 +101,13 @@ Shader "Unlit/Blob"
                 float4 envSample = texCUBE(_EnvCube, reflectionDir);
                 fixed4 reflectionCol = _ReflectionIntensity * envSample;
 
-                fixed4 col = reflectionCol;
+                GrayscaleAmount(reflectionCol, _Saturation);
+
                 fixed fresnel = _FresnelBias + _FresnelIntensity * pow(saturate(1 - dot(i.viewDir, i.normal)), _FresnelPow);
-                // col.xyz += spectral_zucconi6(800 * dot(reflectionDir,float3(1,1,0)) + 20);
-                return fresnel * reflectionCol;
+                fixed4 col = fresnel * reflectionCol;
+
+                col += 0.2 * _Saturation * noise(0.6 * i.vertex.xy);
+                return col;
             }
             ENDCG
         }
