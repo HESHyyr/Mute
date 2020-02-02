@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-
-    public AudioSource[] Soundtracks;
+    private AudioSource BaseMusic;
+    private AudioSource Intro;
 
     [Range(0.01f, 1.0f)]
     public float MuteStaticVolume;
-    public AudioSource MuteStart;
-    public AudioSource MuteStop;
-    public AudioSource MuteMode;
+    private AudioSource MuteStart;
+    private AudioSource MuteStop;
+    private AudioSource MuteMode;
     [Range(0.01f, 1.0f)]
     public float MuteVolume = 0.1f;
     private bool wasMuted;
@@ -21,29 +21,43 @@ public class SoundManager : MonoBehaviour
     [Range(0.0f, 1.0f)]
     public float VolumeControl = 0.5f;
 
+    [HideInInspector]
+    public float MusicVol;
+    [HideInInspector]
+    public float AmbVol;
+    [Range(-0.5f, 0.5f)]
+    public float AmbDamp = -0.1f;
+    [HideInInspector]
+    public float VoiceVol;
+    [Range(-0.5f, 0.5f)]
+    public float VoiceDamp = -0.1f;
+
     // Start is called before the first frame update
     void Start()
     {
-        Soundtracks = GetComponentsInChildren<AudioSource>();
         player = GameObject.Find("Player");
+
+        BaseMusic = GetComponent<AudioSource>();
+        Intro = GameObject.Find("IntroSound").GetComponent<AudioSource>();
+        Intro.volume = VolumeControl;
+        Intro.Play();
+
+        MuteMode = GameObject.Find("MuteLoop").GetComponent<AudioSource>();
+        MuteStart = GameObject.Find("MuteStart").GetComponent<AudioSource>();
+        MuteStop = GameObject.Find("MuteStop").GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("0"))
-        {
-            VolumeControl += .1f;
-        }
-        if (Input.GetKeyDown("9"))
-        {
-            VolumeControl -= .1f;
-        }
-        VolumeControl = Mathf.Clamp01(VolumeControl);
-
-
         if (player.GetComponent<PlayerController>().isMuted)
         {
+            BaseMusic.volume = MuteVolume;
+            MusicVol = MuteVolume;
+            AmbVol = MuteVolume + AmbDamp;
+            VoiceVol = MuteVolume + VoiceDamp;
+
             if (!wasMuted)
             {
                 MuteStart.volume = MuteStaticVolume;
@@ -52,17 +66,12 @@ public class SoundManager : MonoBehaviour
             }
 
             MuteMode.volume = MuteStaticVolume;
-            for (int i = 0; i < Soundtracks.Length; i++)
-            {
-                Soundtracks[i].volume = MuteVolume;
-            }
         } else
         {
-            MuteMode.volume = 0.0f;
-            for (int i = 0; i < Soundtracks.Length; i++)
-            {
-                Soundtracks[i].volume = VolumeControl;
-            }
+            BaseMusic.volume = VolumeControl;
+            MusicVol = VolumeControl;
+            AmbVol = VolumeControl + AmbDamp;
+            VoiceVol = VolumeControl + VoiceDamp;
 
             if (wasMuted)
             {
@@ -70,6 +79,8 @@ public class SoundManager : MonoBehaviour
                 MuteStop.Play();
                 wasMuted = false;
             }
+
+            MuteMode.volume = 0.0f;
         }      
     }
 }
