@@ -15,12 +15,15 @@ public class zoneManager : MonoBehaviour
     private GameObject player;
     private PlayerController playerController;
 
+    [HideInInspector]
+    public bool activated;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
         playerController = player.GetComponent<PlayerController>();
+        activated = false;
     }
 
     // Update is called once per frame
@@ -35,6 +38,6 @@ public class zoneManager : MonoBehaviour
     {
         foreach(GameObject agent in zoneAgents)
             agent.GetComponent<AIController>().repair();
-
+        activated = true;
     }
 }

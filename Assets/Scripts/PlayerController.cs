@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     public UnityEvent playerWin;
     private int goalReached;
     private float lastMuteTime;
+    private bool hasGoodTriangle;
 
 
     // Start is called before the first frame update
@@ -33,6 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         isMuted = false;
+        hasGoodTriangle = false;
         playerAudioListener = GetComponent<AudioListener>();
         goalReached = 0;
     }
@@ -53,28 +55,16 @@ public class PlayerController : MonoBehaviour
             lastMuteTime = Time.time;
         }
 
-        /*
-        if (Input.GetKeyDown("space"))
-        {
-            isMuted = true;
-            if (isMuted)
-            {
-                playerAudioListener.enabled = true;
-            }
-            else
-            {
-                playerAudioListener.enabled = false;
-                lastMuteTime = Time.time;
-            }
-            isMuted = !isMuted;
-        } 
-        */
-
         if (isMuted && Time.time - lastMuteTime >= muteStartDamageCD)
             takeDamage(1);
 
         if (goalReached == 3)
             playerWin.Invoke();
+
+        if (currentGoal != null && currentGoal.GetComponent<zoneManager>().zoneGoodTriangle.GetComponent<AIController>().isChasing())
+            hasGoodTriangle = true;
+        else
+            hasGoodTriangle = false;
     }
 
     public void takeDamage(int number)
@@ -88,9 +78,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.other.CompareTag("Goal") && collision.other.gameObject.GetComponent<MeshRenderer>().material.color != Color.green)
+        if (collision.transform.gameObject == currentGoal && !currentGoal.GetComponent<zoneManager>().activated && hasGoodTriangle)
         {
-            collision.other.gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
+            currentGoal.SetActive(false);
             goalReached++;
         }
     }
