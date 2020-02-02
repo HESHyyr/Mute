@@ -19,6 +19,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float frictionSpeed;
 
+    public float dyingHP = 50;
+    [Range(0.0f, 0.1f)]
+    public float dyingVol;
+    private AudioSource dyingSound;
+    private AudioSource deathSound;
+
+    private bool stabalized = true;
+
     //Reference
     private Rigidbody rb;
 
@@ -40,6 +48,9 @@ public class PlayerController : MonoBehaviour
         isMuted = false;
         hasGoodTriangle = false;
         moveSound = this.GetComponent<AudioSource>();
+        dyingSound = transform.Find("Dying").gameObject.GetComponent<AudioSource>();
+        deathSound = transform.Find("Dead").gameObject.GetComponent<AudioSource>();
+
         goalReached = 0;
     }
 
@@ -48,6 +59,8 @@ public class PlayerController : MonoBehaviour
     {
         if(rb.velocity.magnitude <= maxMoveSpeed)
             rb.AddForce(new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * movementForce, 0, Input.GetAxis("Vertical") * Time.deltaTime * movementForce));
+
+
 
         moveSound.volume = moveSoundDamper * rb.velocity.magnitude;
         moveSound.pitch = 1 + (moveSoundDamper * rb.velocity.magnitude);
@@ -61,6 +74,20 @@ public class PlayerController : MonoBehaviour
         else {
             isMuted = false;
             lastMuteTime = Time.time;
+        }
+
+        if (playerHealth <= dyingHP)
+        {
+            if (stabalized)
+            {
+                stabalized = false;
+                dyingSound.Play();
+            }
+            dyingSound.volume = 0.1f * (100 - playerHealth) * dyingVol;
+        } else
+        {
+            stabalized = true;
+            dyingSound.volume = 0.0f;
         }
 
         if (isMuted && Time.time - lastMuteTime >= muteStartDamageCD)
@@ -77,21 +104,21 @@ public class PlayerController : MonoBehaviour
 
     public void takeDamage(int number)
     {
-        if(number > 0){
-            EnvironmentController.instance.TakeDamage();
-        }
         playerHealth -= number;
         if (playerHealth > 100)
             playerHealth = 100;
         if (playerHealth <= 0)
+        {
             playerDie.Invoke();
+            dyingSound.Stop();
+            deathSound.Play();
+        }          
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.gameObject == currentGoal && !currentGoal.GetComponent<zoneManager>().activated && hasGoodTriangle)
         {
-            currentGoal.GetComponent<zoneManager>().zoneCleared();
             currentGoal.SetActive(false);
             goalReached++;
         }
