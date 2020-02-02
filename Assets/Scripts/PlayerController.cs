@@ -38,7 +38,8 @@ public class PlayerController : MonoBehaviour
     public UnityEvent playerWin;
     private int goalReached;
     private float lastMuteTime;
-    private bool hasGoodTriangle;
+    [HideInInspector]
+    public bool hasGoodTriangle;
 
 
     // Start is called before the first frame update
@@ -117,12 +118,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.gameObject == currentGoal && currentGoal.GetComponent<zoneManager>().isActive && hasGoodTriangle)
-        {
-            currentGoal.GetComponent<zoneManager>().isActive = false;
-            goalReached++;
-            takeDamage(-100);
-        }
+
+    }
+
+    public void activateOneShrine()
+    {
+        goalReached++;
+        takeDamage(-100);
     }
 
 }

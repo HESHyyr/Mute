@@ -7,6 +7,8 @@ public class zoneManager : MonoBehaviour
     //Design parameters
     [SerializeField]
     private float checkPlayerRange;
+    [SerializeField]
+    private float checkGoodTriangleRange;
 
     //Reference
     [SerializeField]
@@ -50,6 +52,17 @@ public class zoneManager : MonoBehaviour
             wasActive = false;
             burstParticles.Emit(200);
         }
+
+        if(Vector3.Distance(transform.position, zoneGoodTriangle.transform.position) <= checkGoodTriangleRange)
+        {
+            if(player.GetComponent<PlayerController>().hasGoodTriangle && isActive)
+            {
+                isActive = false;
+                zoneCleared();
+                playerController.activateOneShrine();
+            }
+        }
+
     }
 
     public void zoneCleared()
