@@ -11,6 +11,7 @@ public class CameraControl : MonoBehaviour
     private Vector3 offset;
 
     public SpriteRenderer Dimmer;
+    public SpriteRenderer Bright;
 
     [Range(0.01f, 1.0f)]
     public float smoothSpeed = 1.0f;
@@ -19,7 +20,8 @@ public class CameraControl : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        Dimmer = GetComponentInChildren<SpriteRenderer>();
+        Dimmer = GameObject.Find("Dim").GetComponent<SpriteRenderer>();
+        Bright = GameObject.Find("Bright").GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
