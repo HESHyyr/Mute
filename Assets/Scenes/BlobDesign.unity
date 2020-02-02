@@ -192,31 +192,6 @@ PrefabInstance:
       propertyPath: blobMat
       value: 
       objectReference: {fileID: 1844906634}
-    - target: {fileID: 8248678640027419845, guid: fd1da7c34f5164bf2b0a6e8e629ceb66,
-        type: 3}
-      propertyPath: dyingSpikeAmp.m_Curve.Array.data[1].time
-      value: 0.82400393
-      objectReference: {fileID: 0}
-    - target: {fileID: 8248678640027419845, guid: fd1da7c34f5164bf2b0a6e8e629ceb66,
-        type: 3}
-      propertyPath: dyingSpikeAmp.m_Curve.Array.data[1].value
-      value: 0.008785031
-      objectReference: {fileID: 0}
-    - target: {fileID: 8248678640027419845, guid: fd1da7c34f5164bf2b0a6e8e629ceb66,
-        type: 3}
-      propertyPath: dyingSpikeAmp.m_Curve.Array.data[1].inSlope
-      value: 0.048418224
-      objectReference: {fileID: 0}
-    - target: {fileID: 8248678640027419845, guid: fd1da7c34f5164bf2b0a6e8e629ceb66,
-        type: 3}
-      propertyPath: dyingSpikeAmp.m_Curve.Array.data[1].outSlope
-      value: 0.048418224
-      objectReference: {fileID: 0}
-    - target: {fileID: 8248678640027419845, guid: fd1da7c34f5164bf2b0a6e8e629ceb66,
-        type: 3}
-      propertyPath: dyingSpikeAmp.m_Curve.Array.data[1].outWeight
-      value: 0.37703964
-      objectReference: {fileID: 0}
     - target: {fileID: 8248678640027419850, guid: fd1da7c34f5164bf2b0a6e8e629ceb66,
         type: 3}
       propertyPath: m_Name
@@ -1343,7 +1318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e375cbdf00e6d44eb89a300cc7c0d598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: 100
+  playerHealth: 102
   movementForce: 400
   maxMoveSpeed: 10
   muteStartDamageCD: 0
