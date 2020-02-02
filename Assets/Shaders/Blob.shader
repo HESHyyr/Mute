@@ -87,6 +87,11 @@ Shader "Unlit/Blob"
 
                 distortedVert += _SpikeAmp * (1 + 0.2 * sin(_Time.y + surfaceCoords.y)) * pow(cos(surfaceCoords.y) + sin(surfaceCoords.x), 6) * v.normal;
 
+
+                // if saturation is 0.5 to 0.7, apply a camera shake
+                float transitionAmt = 1. - clamp(abs(_Saturation-0.5)/0.2, 0, 1.);
+                distortedVert += transitionAmt * ( float4(1,0,0,0) + sin(v.normal.x) );
+
                 o.viewDir = normalize(ObjSpaceViewDir(distortedVert));
                 o.vertex = UnityObjectToClipPos(distortedVert);
                 o.normal = v.normal;
