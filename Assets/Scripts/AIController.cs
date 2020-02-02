@@ -51,12 +51,14 @@ public class AIController : MonoBehaviour
     private Quaternion previousRotation;
     private bool isResetingRotation;
     private float slerpTimer;
+    private bool enemyCleaned;
 
     // Start is called before the first frame update
     void Start()
     {
         startPosition = transform.position;
         startRotation = transform.rotation;
+        enemyCleaned = false;
         isResetingRotation = false;
         currentWaypointIndex = 0;
         if (Random.Range(0.0f, 1.0f) <= generateEnemyChances)
@@ -79,117 +81,121 @@ public class AIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-        distanceStartToPlayer = Vector3.Distance(startPosition, player.transform.position);
-        if (distanceToPlayer <= chaseDistance && distanceToPlayer > talkDistance && distanceStartToPlayer <= maxChaseRange)
+        if(!enemyCleaned || triangleType == 1)
         {
-            if (player.GetComponent<PlayerController>().isMuted)
+            distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+            distanceStartToPlayer = Vector3.Distance(startPosition, player.transform.position);
+            if (distanceToPlayer <= chaseDistance && distanceToPlayer > talkDistance && distanceStartToPlayer <= maxChaseRange)
             {
-                if (agentState == agentStates.chase)
+                if (player.GetComponent<PlayerController>().isMuted)
                 {
-                    agentState = agentStates.backoff;
-                    agent.SetDestination(transform.position + (transform.position - player.transform.position).normalized * 2);
+                    if (agentState == agentStates.chase)
+                    {
+                        agentState = agentStates.backoff;
+                        agent.SetDestination(transform.position + (transform.position - player.transform.position).normalized * 2);
+                    }
+                }
+                else if (agentState != agentStates.backoff)
+                {
+                    agentState = agentStates.chase;
+                    agent.SetDestination(player.transform.position);
                 }
             }
-            else if (agentState != agentStates.backoff)
+            else if (distanceToPlayer <= talkDistance && distanceStartToPlayer <= maxChaseRange)
             {
-                agentState = agentStates.chase;
-                agent.SetDestination(player.transform.position);
-            }
-        }
-        else if (distanceToPlayer <= talkDistance && distanceStartToPlayer <= maxChaseRange)
-        {
-            if (player.GetComponent<PlayerController>().isMuted)
-            {
-                if (agentState == agentStates.chase)
+                if (player.GetComponent<PlayerController>().isMuted)
                 {
-                    agentState = agentStates.backoff;
-                    agent.SetDestination(transform.position + (transform.position - player.transform.position).normalized * 2);
+                    if (agentState == agentStates.chase)
+                    {
+                        agentState = agentStates.backoff;
+                        agent.SetDestination(transform.position + (transform.position - player.transform.position).normalized * 2);
+                    }
+                }
+                else if (agentState != agentStates.backoff)
+                {
+                    agentState = agentStates.chase;
+                    agent.SetDestination(transform.position);
+                    transform.LookAt(player.transform.position);
+                }
+
+                if (Time.time - lastSpeakTime >= speakCD)
+                {
+                    lastSpeakTime = Time.time;
+                    if (!player.GetComponent<PlayerController>().isMuted)
+                        player.GetComponent<PlayerController>().takeDamage(damageDealt);
+                    transform.GetChild(0).gameObject.GetComponent<EnemySounds>().playVoice(triangleType);
                 }
             }
-            else if (agentState != agentStates.backoff)
+            else
             {
-                agentState = agentStates.chase;
-                agent.SetDestination(transform.position);
-                transform.LookAt(player.transform.position);
+                if (agentState == agentStates.chase)
+                    agentState = agentStates.backToStartPosition;
             }
 
-            if (Time.time - lastSpeakTime >= speakCD)
+
+            //AI movement pattern
+            if (agentState == agentStates.idle)
             {
-                lastSpeakTime = Time.time;
-                if(!player.GetComponent<PlayerController>().isMuted)
-                    player.GetComponent<PlayerController>().takeDamage(damageDealt);
-                transform.GetChild(0).gameObject.GetComponent<EnemySounds>().playVoice(triangleType);
+                switch (wanderMode)
+                {
+                    case "Circle":
+                        angle += rotationStep * Time.deltaTime;
+                        Vector3 offset = new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)) * circleRotationRadius;
+                        agent.SetDestination(startPosition + centerOffset + offset);
+                        break;
+
+
+                    case "Linear":
+                        if (agent.remainingDistance <= 0.01f)
+                            agent.SetDestination(waypoints[currentWaypointIndex++]);
+                        if (currentWaypointIndex >= waypoints.Length)
+                            currentWaypointIndex = 0;
+                        break;
+
+                    case "Static":
+                        break;
+
+
+                    default:
+                        break;
+                }
+            }
+
+            if (agent.remainingDistance <= 0.01f)
+            {
+                switch (agentState)
+                {
+                    case agentStates.backoff:
+                        agentState = agentStates.backToStartPosition;
+                        agent.SetDestination(startPosition);
+                        break;
+
+                    case agentStates.backToStartPosition:
+                        StartCoroutine(WaitForResetRotation());
+                        break;
+
+                    default:
+                        break;
+
+                }
+            }
+
+            if (isResetingRotation)
+            {
+                transform.rotation = Quaternion.Slerp(previousRotation, startRotation, slerpTimer);
+                slerpTimer += resetRotationSpeed;
             }
         }
         else
         {
-            if (agentState == agentStates.chase)
-                agentState = agentStates.backToStartPosition;
-        }
-
-
-        //AI movement pattern
-        if (agentState == agentStates.idle)
-        {
-            switch (wanderMode)
-            {
-                case "Circle":
-                    angle += rotationStep * Time.deltaTime;
-                    Vector3 offset = new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)) * circleRotationRadius;
-                    agent.SetDestination(startPosition + centerOffset + offset);
-                    break;
-
-
-                case "Linear":
-                    if (agent.remainingDistance <= 0.01f)
-                        agent.SetDestination(waypoints[currentWaypointIndex++]);
-                    if (currentWaypointIndex >= waypoints.Length)
-                        currentWaypointIndex = 0;
-                    break;
-
-                case "Static":
-                    break;
-
-
-                default:
-                    break;
-            }
-        }
-
-        if (agent.remainingDistance <= 0.01f)
-        {
-            switch (agentState)
-            {
-                case agentStates.backoff:
-                    agentState = agentStates.backToStartPosition;
-                    agent.SetDestination(startPosition);
-                    break;
-
-                case agentStates.backToStartPosition:
-                    StartCoroutine(WaitForResetRotation());
-                    break;
-
-                default:
-                    break;
-                    
-            }
-        }
-
-        if (isResetingRotation)
-        {
-            transform.rotation = Quaternion.Slerp(previousRotation, startRotation, slerpTimer);
-            slerpTimer += resetRotationSpeed;
+            agent.SetDestination(transform.position);
         }
     }
 
     public void repair()
     {
-        if(triangleType == 0)
-        {
-            triangleType = 1;
-            damageDealt = -10;
-        }
+        if (triangleType == 0)
+            enemyCleaned = true;
     }
 
     public bool isChasing()
