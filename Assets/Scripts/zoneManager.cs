@@ -10,7 +10,7 @@ public class zoneManager : MonoBehaviour
 
     //Reference
     [SerializeField]
-    private List<GameObject> zoneAgents;
+    private GameObject zoneAgentsGroup;
     public GameObject zoneGoodTriangle;
     private GameObject player;
     private PlayerController playerController;
@@ -36,8 +36,8 @@ public class zoneManager : MonoBehaviour
 
     public void zoneCleared()
     {
-        foreach(GameObject agent in zoneAgents)
-            agent.GetComponent<AIController>().repair();
+        foreach(Transform agent in zoneAgentsGroup.transform)
+            agent.gameObject.GetComponent<AIController>().repair();
         activated = true;
     }
 }
