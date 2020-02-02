@@ -24,6 +24,14 @@ public class EnemySounds : MonoBehaviour
         Voice = GetComponent<AudioSource>();
 
         MasterVol = GameObject.Find("Audio Manager").GetComponent<SoundManager>();
+
+        if(transform.parent.gameObject.GetComponent<AIController>().triangleType == 1)
+        {
+            RandomLine = Random.Range(0, goodVoices.Length);
+            Voice.loop = true;
+            Voice.clip = goodVoices[RandomLine];
+            Voice.Play();
+        }
     }
 
     // Update is called once per frame
@@ -38,11 +46,6 @@ public class EnemySounds : MonoBehaviour
         {
             RandomLine = Random.Range(0, badVoices.Length);
             Voice.clip = badVoices[RandomLine];
-        }
-        else
-        {
-            RandomLine = Random.Range(0, goodVoices.Length);
-            Voice.clip = goodVoices[RandomLine];
         }
         Voice.Play();
     }

@@ -123,7 +123,8 @@ public class AIController : MonoBehaviour
                     lastSpeakTime = Time.time;
                     if (!player.GetComponent<PlayerController>().isMuted)
                         player.GetComponent<PlayerController>().takeDamage(damageDealt);
-                    transform.GetChild(0).gameObject.GetComponent<EnemySounds>().playVoice(triangleType);
+                    if(triangleType == 1)
+                        transform.GetChild(0).gameObject.GetComponent<EnemySounds>().playVoice(triangleType);
                 }
             }
             else

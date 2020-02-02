@@ -92,7 +92,10 @@ public class PlayerController : MonoBehaviour
         }
 
         if (isMuted && Time.time - lastMuteTime >= muteStartDamageCD)
-            takeDamage(1);
+        {
+            takeDamage(5);
+            lastMuteTime = Time.time;
+        }
 
         if (goalReached == 3)
             playerWin.Invoke();
