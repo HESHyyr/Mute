@@ -73,11 +73,11 @@ public class PlayerController : MonoBehaviour
 
     public void takeDamage(int number)
     {
-        playerHealth -= number;
-        if (playerHealth > 100)
-            playerHealth = 100;
-        if (playerHealth <= 0)
-            playerDie.Invoke();
+        // playerHealth -= number;
+        // if (playerHealth > 100)
+        //     playerHealth = 100;
+        // if (playerHealth <= 0)
+        //     playerDie.Invoke();
     }
 
     private void OnCollisionEnter(Collision collision)
