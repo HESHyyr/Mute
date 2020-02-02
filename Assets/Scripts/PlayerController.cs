@@ -120,6 +120,7 @@ public class PlayerController : MonoBehaviour
         if (collision.transform.gameObject == currentGoal && !currentGoal.GetComponent<zoneManager>().activated && hasGoodTriangle)
         {
             currentGoal.SetActive(false);
+            currentGoal.GetComponent<zoneManager>().zoneCleared();
             goalReached++;
         }
     }
