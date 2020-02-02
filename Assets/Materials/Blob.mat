@@ -79,7 +79,7 @@ Material:
     - _SpecularHighlights: 1
     - _SpikeAmp: 0
     - _SpikeDensity: 28.1
-    - _SpikePow: 12
+    - _SpikePow: 2
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1

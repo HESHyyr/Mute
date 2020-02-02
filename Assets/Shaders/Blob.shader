@@ -5,9 +5,9 @@ Shader "Unlit/Blob"
         _MainTex ("Texture", 2D) = "white" {}
         _NoiseFreq ("Noise Freq", Range(0,1)) = 0.7
         _NoiseAmp ("Noise Amp", Range(0,1)) = 0.7
-        _SpikeAmp ("Spike Amp", Range(0,0.0002)) = 0.7
-         _SpikePow ("Spike Pow", Range(0,20)) = 0.7
-         _SpikeDensity ("Spike Density", Range(0,100)) = 0.7
+        _SpikeAmp ("Spike Amp", Range(0,0.05)) = 0.7
+        [HideInInspector] _SpikePow ("Spike Pow", Range(0,20)) = 0.7
+        [HideInInspector] _SpikeDensity ("Spike Density", Range(0,100)) = 0.7
         _Size ("Size", Range(0,0.5)) = 1
         _EnvCubeRotation ("Env Cube Rotation", Vector) = (0,0,0,0)
         _EnvCube ("Environment Cube", CUBE) = "" {}
@@ -92,7 +92,7 @@ Shader "Unlit/Blob"
                 float2 surfaceCoords = float2(atan(v.vertex.x/ v.vertex.y), atan(v.vertex.z/1.));
                 surfaceCoords = _SpikeDensity * surfaceCoords;
 
-                distortedVert += _SpikeAmp * (1 + 0.2 * sin(_Time.y + surfaceCoords.y)) * pow(cos(surfaceCoords.y) + sin(surfaceCoords.x), _SpikePow) * v.normal;
+                distortedVert += _SpikeAmp * (1 + 0.2 * sin(_Time.y + surfaceCoords.y)) * pow(cos(surfaceCoords.y) + sin(surfaceCoords.x), 6) * v.normal;
 
                 o.viewDir = normalize(ObjSpaceViewDir(distortedVert));
                 o.vertex = UnityObjectToClipPos(distortedVert);
