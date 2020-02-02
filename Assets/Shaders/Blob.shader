@@ -111,7 +111,7 @@ Shader "Unlit/Blob"
                 fixed4 col = fresnel * reflectionCol;
 
                 UNITY_APPLY_FOG(i.fogCoord, col);
-                GrayscaleAmount(reflectionCol, _Saturation);
+                GrayscaleAmount(col, _Saturation);
 
                 col += 0.2 * _Saturation * noise(0.6 * i.vertex.xy);
                 return col;
