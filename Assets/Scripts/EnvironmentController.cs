@@ -83,19 +83,17 @@ public class EnvironmentController : MonoBehaviour
 
     IEnumerator DamageRoutine() {
         float t = 0f;
-        Debug.Log(t);
         while(t <= 1){
             blobMat.material.SetFloat("_HitAmount", t);
             t += 6f * Time.deltaTime;
-            Debug.Log(t);
             yield return 0;
         }
         while(t >= 0){
             blobMat.material.SetFloat("_HitAmount", t);
             t -= 6f * Time.deltaTime;
-            Debug.Log(t);
             yield return 0;
         }
+        blobMat.material.SetFloat("_HitAmount", 0f)
         takingDamageRoutine = null;
         yield return 0;
     }
