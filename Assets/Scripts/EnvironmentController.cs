@@ -29,6 +29,12 @@ public class EnvironmentController : MonoBehaviour
     BlobState cur = new BlobState();
 
     bool isMuted = false;
+
+    public static EnvironmentController instance;
+
+    void Awake() {
+        instance = this;
+    }
     void Start()
     {
         CopyMaterialToState(mutedMat, ref muted);
@@ -67,6 +73,29 @@ public class EnvironmentController : MonoBehaviour
         cur._Saturation = Mathf.MoveTowards(cur._Saturation, to._Saturation, t);
     }
 
+    Coroutine takingDamageRoutine = null;
+    public void TakeDamage(){ 
+        if(takingDamageRoutine == null){
+            takingDamageRoutine = StartCoroutine(DamageRoutine());
+        }
+    }
+
+    IEnumerator DamageRoutine() {
+        float t = 0f;
+        while(t <= 1){
+            blobMat.material.SetFloat("_HitAmount", t);
+            t += 6f * Time.deltaTime;
+            yield return 0;
+        }
+        while(t >= 0){
+            blobMat.material.SetFloat("_HitAmount", t);
+            t -= 6f * Time.deltaTime;
+            yield return 0;
+        }
+        blobMat.material.SetFloat("_HitAmount", 0f);
+        takingDamageRoutine = null;
+        yield return 0;
+    }
     void CopyParamsToBlob() {
         blobMat.material.SetFloat("_FresnelPow", cur._FresnelPow);
         blobMat.material.SetFloat("_FresnelBias", cur._FresnelBias);

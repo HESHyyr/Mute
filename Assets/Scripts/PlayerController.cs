@@ -77,6 +77,9 @@ public class PlayerController : MonoBehaviour
 
     public void takeDamage(int number)
     {
+        if(number > 0){
+            EnvironmentController.instance.TakeDamage();
+        }
         playerHealth -= number;
         if (playerHealth > 100)
             playerHealth = 100;
@@ -88,6 +91,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.transform.gameObject == currentGoal && !currentGoal.GetComponent<zoneManager>().activated && hasGoodTriangle)
         {
+            currentGoal.GetComponent<zoneManager>().zoneCleared();
             currentGoal.SetActive(false);
             goalReached++;
         }

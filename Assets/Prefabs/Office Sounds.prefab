@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d68d3f902cbfb2429350cb1316a0eec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Voices:
+  goodVoices:
+  - {fileID: 8300000, guid: 598bfe6fc24eeb74b9c6186965dff319, type: 3}
+  badVoices:
   - {fileID: 8300000, guid: 559a7b3a6e7d86e49864963471afc9b0, type: 3}
   - {fileID: 8300000, guid: 7fdbd77cd292b704497019b37bd2d5de, type: 3}
   - {fileID: 8300000, guid: 81ab7911da991284dba8e9c0e74a44e8, type: 3}
@@ -60,10 +62,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2f964688529a7c9489308565de183bbf, type: 3}
   - {fileID: 8300000, guid: c29f2ee2b73580f4d8e05bbb7bf131fd, type: 3}
   - {fileID: 8300000, guid: c1899a4e21531e9499a172164a700f64, type: 3}
+  - {fileID: 8300000, guid: 215522efbaea3bd4eb7ab2bf7bac8e7d, type: 3}
   Voice: {fileID: 0}
   RandomLine: 0
-  WaitTime: 4
-  WaitTimer: 0
   VolumeControl: 0.5
   MuteVolume: 0.1
 --- !u!82 &1019858187818095139
