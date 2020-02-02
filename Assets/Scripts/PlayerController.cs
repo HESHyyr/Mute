@@ -122,6 +122,8 @@ public class PlayerController : MonoBehaviour
             currentGoal.SetActive(false);
             currentGoal.GetComponent<zoneManager>().zoneCleared();
             goalReached++;
+            takeDamage(-100);
         }
     }
+
 }
