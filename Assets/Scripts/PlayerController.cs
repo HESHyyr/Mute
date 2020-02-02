@@ -13,10 +13,14 @@ public class PlayerController : MonoBehaviour
     private float maxMoveSpeed;
     [SerializeField]
     private float muteStartDamageCD;
+    [SerializeField]
+    private float moveSoundDamper;
+    private AudioSource moveSound;
+    [SerializeField]
+    private float frictionSpeed;
 
     //Reference
     private Rigidbody rb;
-    private AudioListener playerAudioListener;
 
     [HideInInspector]
     public bool isMuted;
@@ -35,7 +39,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         isMuted = false;
         hasGoodTriangle = false;
-        playerAudioListener = GetComponent<AudioListener>();
+        moveSound = this.GetComponent<AudioSource>();
         goalReached = 0;
     }
 
@@ -45,10 +49,14 @@ public class PlayerController : MonoBehaviour
         if(rb.velocity.magnitude <= maxMoveSpeed)
             rb.AddForce(new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * movementForce, 0, Input.GetAxis("Vertical") * Time.deltaTime * movementForce));
 
-        
+        moveSound.volume = moveSoundDamper * rb.velocity.magnitude;
+        moveSound.pitch = 1 + (moveSoundDamper * rb.velocity.magnitude);
+
+
         if (Input.GetKey("space"))
         {
             isMuted = true;
+            moveSound.volume = 0.1f * moveSoundDamper * rb.velocity.magnitude;
         } 
         else {
             isMuted = false;

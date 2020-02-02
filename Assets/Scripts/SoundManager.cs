@@ -55,8 +55,8 @@ public class SoundManager : MonoBehaviour
         {
             BaseMusic.volume = MuteVolume;
             MusicVol = MuteVolume;
-            AmbVol = MuteVolume + AmbDamp;
-            VoiceVol = MuteVolume + VoiceDamp;
+            AmbVol = MuteVolume;
+            VoiceVol = MuteVolume;
 
             if (!wasMuted)
             {

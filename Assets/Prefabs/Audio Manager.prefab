@@ -183,7 +183,7 @@ MonoBehaviour:
   AmbVol: 0
   AmbDamp: -0.1
   VoiceVol: 0
-  VoiceDamp: -0.1
+  VoiceDamp: 0.05
 --- !u!82 &618807949
 AudioSource:
   m_ObjectHideFlags: 0
@@ -328,7 +328,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 87e5d7427de8f284fbf7b459086e9dff,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: dc37b28178a6bd54fb33c5316c9c82ce, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b73786840ab592942a8abcbcd1f076c1, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0
   m_Pitch: 1
@@ -456,7 +456,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 87e5d7427de8f284fbf7b459086e9dff,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 010f2330aaee998438bc912d532a9df3, type: 3}
+  m_audioClip: {fileID: 8300000, guid: be85c43ff1661ab4b8ca0b71d2df7502, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
@@ -589,7 +589,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 87e5d7427de8f284fbf7b459086e9dff,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 634706d8dc2fcb34cbbb2dbd257bd3d2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 1597cb98cac50924aa07907e93fc5822, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0
   m_Pitch: 1
