@@ -45,7 +45,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey("space"))
         {
             isMuted = true;
-        } else { isMuted = false; }
+        } 
+        else {
+            isMuted = false;
+            lastMuteTime = Time.time;
+        }
 
         /*
         if (Input.GetKeyDown("space"))
