@@ -93,7 +93,7 @@ public class EnvironmentController : MonoBehaviour
             t -= 6f * Time.deltaTime;
             yield return 0;
         }
-        blobMat.material.SetFloat("_HitAmount", 0f)
+        blobMat.material.SetFloat("_HitAmount", 0f);
         takingDamageRoutine = null;
         yield return 0;
     }

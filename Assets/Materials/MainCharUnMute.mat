@@ -41,4 +41,4 @@ Material:
     - _SpikePow: 4
     m_Colors:
     - _EnvCubeRotation: {r: 18.5, g: 0.5, b: 2.89, a: 1}
-    - _HitColor: {r: 1, g: 0.2216981, b: 0.2216981, a: 0}
+    - _HitColor: {r: 1, g: 0.2235294, b: 0.62362045, a: 0}
