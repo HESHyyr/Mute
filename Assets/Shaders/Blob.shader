@@ -3,12 +3,12 @@ Shader "Unlit/Blob"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _NoiseFreq ("Noise Freq", Range(0,1)) = 0.7
-        _NoiseAmp ("Noise Amp", Range(0,1)) = 0.7
-        _SpikeAmp ("Spike Amp", Range(0,0.05)) = 0.7
-        [HideInInspector] _SpikePow ("Spike Pow", Range(0,20)) = 0.7
-        [HideInInspector] _SpikeDensity ("Spike Density", Range(0,100)) = 0.7
-        _Size ("Size", Range(0,0.5)) = 1
+        _NoiseFreq ("Noise Freq", Range(0,1)) = 0.967
+        _NoiseAmp ("Noise Amp", Range(0,1)) = 0.127
+        _SpikeAmp ("Spike Amp", Range(0,0.05)) = 0.
+        [HideInInspector] _SpikePow ("Spike Pow", Range(0,20)) = 4
+        [HideInInspector] _SpikeDensity ("Spike Density", Range(0,100)) = 28.1
+        _Size ("Size", Range(0,0.5)) = 0.5
         _EnvCubeRotation ("Env Cube Rotation", Vector) = (0,0,0,0)
         _EnvCube ("Environment Cube", CUBE) = "" {}
         _ReflectionIntensity ("Reflection Intensity", Range(0,5)) = 0
@@ -109,7 +109,7 @@ Shader "Unlit/Blob"
                 fixed4 reflectionCol = _ReflectionIntensity * envSample;
 
                 fixed4 col = reflectionCol;
-                col.xyz += spectral_zucconi6(800 * dot(reflectionDir,float3(1,1,0)) + 20);
+                // col.xyz += spectral_zucconi6(800 * dot(reflectionDir,float3(1,1,0)) + 20);
                 return col;
             }
             ENDCG
