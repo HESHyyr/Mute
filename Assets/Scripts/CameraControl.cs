@@ -36,19 +36,9 @@ public class CameraControl : MonoBehaviour
         transform.position = smoothedPosition;
 
         transform.LookAt(player.transform);
-        /*
-        if (FadingUp)
-        {
-
-        }
-
-        if (FadingDown)
-        {
-
-        }
-        */
     }
 
+    /*
     public void FadeDark(float t)
     {
         Dimmer.color = new Color(Dimmer.color.r, Dimmer.color.g, Dimmer.color.b, 0.5f);
@@ -58,4 +48,5 @@ public class CameraControl : MonoBehaviour
     {
         Bright.color = new Color(Bright.color.r, Bright.color.g, Bright.color.b, 0.5f);
     }
+    */
 }
