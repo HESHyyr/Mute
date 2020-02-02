@@ -9,6 +9,9 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource MuteMode;
     public bool Muted = false;
+    [Range(0.0f, 1.0f)]
+    public float MuteVolume = 0.1f;
+
 
     [Range(0.0f, 1.0f)]
     public float VolumeControl = 0.5f;
@@ -30,18 +33,28 @@ public class SoundManager : MonoBehaviour
         {
             VolumeControl -= .1f;
         }
+        VolumeControl = Mathf.Clamp01(VolumeControl);
+
 
         if (Input.GetKey("8"))
         {
             Muted = true;
         } else { Muted = false; }
 
-        VolumeControl = Mathf.Clamp01(VolumeControl);
-
-        for (int i = 0; i < Soundtracks.Length; i++)
+        if (Muted)
         {
-            Soundtracks[i].volume = VolumeControl;
-        }
-        
+            MuteMode.volume = 1.0f;
+            for (int i = 0; i < Soundtracks.Length; i++)
+            {
+                Soundtracks[i].volume = MuteVolume;
+            }
+        } else
+        {
+            MuteMode.volume = 0.0f;
+            for (int i = 0; i < Soundtracks.Length; i++)
+            {
+                Soundtracks[i].volume = VolumeControl;
+            }
+        }      
     }
 }
