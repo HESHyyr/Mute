@@ -17,13 +17,14 @@ public class EnemySounds : MonoBehaviour
     [Range(0.0f, 1.0f)]
     public float MuteVolume = 0.1f;
 
-    private GameObject player;
+    private SoundManager MasterVol;
 
     // Start is called before the first frame update
     void Start()
     {
         Voice = GetComponent<AudioSource>();
-        player = GameObject.Find("Player");
+
+        MasterVol = GameObject.Find("Audio Manager").GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -35,14 +36,7 @@ public class EnemySounds : MonoBehaviour
             RandomLine = Random.Range(0, Voices.Length);
             Voice.clip = Voices[RandomLine];
 
-            if (player.GetComponent<PlayerController>().isMuted)
-            {
-                Voice.volume = MuteVolume;
-            }
-            else
-            {
-                Voice.volume = VolumeControl;
-            }
+            Voice.volume = MasterVol.VoiceVol;
             
             Voice.Play();
         }
