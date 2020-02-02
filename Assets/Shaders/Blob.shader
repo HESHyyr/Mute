@@ -15,6 +15,8 @@ Shader "Unlit/Blob"
         _FresnelPow ("Fresnel Pow", Range(0,10)) = 4
         _FresnelBias ("Fresnel Bias", Range(0,5)) = 0
         _FresnelIntensity ("Fresnel Intensity", Range(0,10)) = 2.8
+        _HitAmount ("Hit Amount", Range(0,1)) = 0
+        _HitColor ("Hit Color", Color) = (0,0,0,0)
     }
     SubShader
     {
@@ -62,6 +64,9 @@ Shader "Unlit/Blob"
             float _FresnelPow;
             float _FresnelIntensity;
 
+            float _HitAmount;
+            float4 _HitColor;
+
             //Global params
             float _Saturation;
             float3 Grayscale(float3 inputColor)
@@ -108,7 +113,7 @@ Shader "Unlit/Blob"
                 float4 envSample = texCUBE(_EnvCube, reflectionDir);
                 fixed4 reflectionCol = _ReflectionIntensity * envSample;
                 fixed fresnel = _FresnelBias + _FresnelIntensity * pow(saturate(1 - dot(i.viewDir, i.normal)), _FresnelPow);
-                fixed4 col = fresnel * reflectionCol;
+                fixed4 col = fresnel * reflectionCol + 2 * _HitAmount * _HitColor * reflectionCol.b;
 
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 GrayscaleAmount(col, _Saturation);
