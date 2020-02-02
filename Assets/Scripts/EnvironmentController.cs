@@ -75,7 +75,6 @@ public class EnvironmentController : MonoBehaviour
 
     Coroutine takingDamageRoutine = null;
     public void TakeDamage(){ 
-        Debug.Log("hi");
         if(takingDamageRoutine == null){
             takingDamageRoutine = StartCoroutine(DamageRoutine());
         }
