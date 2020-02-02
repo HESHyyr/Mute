@@ -75,7 +75,7 @@ public class EnvironmentController : MonoBehaviour
 
     Coroutine takingDamageRoutine = null;
     public void TakeDamage(){ 
-        if(takingDamageRoutine == null){
+        if(takingDamageRoutine == null && !playerController.isMuted){
             takingDamageRoutine = StartCoroutine(DamageRoutine());
         }
     }
