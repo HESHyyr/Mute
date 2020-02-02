@@ -192,6 +192,11 @@ public class AIController : MonoBehaviour
         }
     }
 
+    public bool isChasing()
+    {
+        return agentState == agentStates.chase;
+    }
+
     IEnumerator WaitForResetRotation()
     {
         previousRotation = transform.rotation;

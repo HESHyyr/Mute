@@ -7,11 +7,14 @@ public class CameraControl : MonoBehaviour
     [Range(0.01f, 20.0f)]
     public float ZoomLevel = 8.0f;
     
-    public GameObject player;
+    private GameObject player;
     private Vector3 offset;
 
-    public SpriteRenderer Dimmer;
-    public SpriteRenderer Bright;
+    private SpriteRenderer Dimmer;
+    private SpriteRenderer Bright;
+
+    //public FadingUp;
+    //public FadingDown;
 
     [Range(0.01f, 1.0f)]
     public float smoothSpeed = 1.0f;
@@ -33,11 +36,26 @@ public class CameraControl : MonoBehaviour
         transform.position = smoothedPosition;
 
         transform.LookAt(player.transform);
-
-        if(player.GetComponent<PlayerController>().isMuted)
+        /*
+        if (FadingUp)
         {
-            Dimmer.color = new Color(Dimmer.color.r, Dimmer.color.g, Dimmer.color.b, 0.5f);
+
         }
-        else { Dimmer.color = new Color(Dimmer.color.r, Dimmer.color.g, Dimmer.color.b, 0); }
+
+        if (FadingDown)
+        {
+
+        }
+        */
+    }
+
+    public void FadeDark(float t)
+    {
+        Dimmer.color = new Color(Dimmer.color.r, Dimmer.color.g, Dimmer.color.b, 0.5f);
+    }
+
+    public void FadeLight(float t)
+    {
+        Bright.color = new Color(Bright.color.r, Bright.color.g, Bright.color.b, 0.5f);
     }
 }
