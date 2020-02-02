@@ -26,7 +26,7 @@ Shader "Unlit/Blob"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-
+            #pragma multi_compile_fog
             #include "UnityCG.cginc"
             #include "simplexnoise.cginc"
             struct appdata
@@ -41,6 +41,7 @@ Shader "Unlit/Blob"
                 float4 vertex : SV_POSITION;
                 float4 normal : NORMAL;
                 float3 viewDir : TEXCOORD1;
+                UNITY_FOG_COORDS(2)
             };
 
             sampler2D _MainTex;
@@ -95,6 +96,7 @@ Shader "Unlit/Blob"
                 o.viewDir = normalize(ObjSpaceViewDir(distortedVert));
                 o.vertex = UnityObjectToClipPos(distortedVert);
                 o.normal = v.normal;
+                UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
             }
             fixed4 frag (v2f i) : SV_Target
@@ -105,11 +107,11 @@ Shader "Unlit/Blob"
 
                 float4 envSample = texCUBE(_EnvCube, reflectionDir);
                 fixed4 reflectionCol = _ReflectionIntensity * envSample;
-
-                GrayscaleAmount(reflectionCol, _Saturation);
-
                 fixed fresnel = _FresnelBias + _FresnelIntensity * pow(saturate(1 - dot(i.viewDir, i.normal)), _FresnelPow);
                 fixed4 col = fresnel * reflectionCol;
+
+                UNITY_APPLY_FOG(i.fogCoord, col);
+                GrayscaleAmount(reflectionCol, _Saturation);
 
                 col += 0.2 * _Saturation * noise(0.6 * i.vertex.xy);
                 return col;
