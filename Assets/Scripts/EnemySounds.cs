@@ -45,24 +45,7 @@ public class EnemySounds : MonoBehaviour
             Voice.clip = goodVoices[RandomLine];
         }
 
-        if (player.GetComponent<PlayerController>().isMuted)
-        {
-<<<<<<< HEAD
-            WaitTimer = WaitTime;
-            RandomLine = Random.Range(0, Voices.Length);
-            Voice.clip = Voices[RandomLine];
-
-            Voice.volume = MasterVol.VoiceVol;
-            
-            Voice.Play();
-=======
-            Voice.volume = MuteVolume;
->>>>>>> b63ec4d7419c853ec8e1df2b9aa562770ed5766a
-        }
-        else
-        {
-            Voice.volume = VolumeControl;
-        }
+        Voice.volume = MasterVol.VoiceVol;
 
         Voice.Play();
     }
