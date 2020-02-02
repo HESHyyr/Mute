@@ -10,8 +10,8 @@ public class CameraControl : MonoBehaviour
     public GameObject player;
     private Vector3 offset;
 
-    // public SpriteRenderer Dimmer;
-    // public SpriteRenderer Bright;
+    public SpriteRenderer Dimmer;
+    public SpriteRenderer Bright;
 
     [Range(0.01f, 1.0f)]
     public float smoothSpeed = 1.0f;
@@ -20,8 +20,8 @@ public class CameraControl : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        // Dimmer = GameObject.Find("Dim").GetComponent<SpriteRenderer>();
-        // Bright = GameObject.Find("Bright").GetComponent<SpriteRenderer>();
+        Dimmer = GameObject.Find("Dim").GetComponent<SpriteRenderer>();
+        Bright = GameObject.Find("Bright").GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -34,10 +34,10 @@ public class CameraControl : MonoBehaviour
 
         transform.LookAt(player.transform);
 
-        // if(player.GetComponent<PlayerController>().isMuted)
-        // {
-        //     Dimmer.color = new Color(Dimmer.color.r, Dimmer.color.g, Dimmer.color.b, 0.5f);
-        // }
-        // else { Dimmer.color = new Color(Dimmer.color.r, Dimmer.color.g, Dimmer.color.b, 0); }
+        if(player.GetComponent<PlayerController>().isMuted)
+        {
+            Dimmer.color = new Color(Dimmer.color.r, Dimmer.color.g, Dimmer.color.b, 0.5f);
+        }
+        else { Dimmer.color = new Color(Dimmer.color.r, Dimmer.color.g, Dimmer.color.b, 0); }
     }
 }
