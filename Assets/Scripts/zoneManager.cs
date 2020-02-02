@@ -4,27 +4,37 @@ using UnityEngine;
 
 public class zoneManager : MonoBehaviour
 {
+    //Design parameters
+    [SerializeField]
+    private float checkPlayerRange;
+
     //Reference
     [SerializeField]
     private List<GameObject> zoneAgents;
+    public GameObject zoneGoodTriangle;
     private GameObject player;
+    private PlayerController playerController;
 
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
+        playerController = player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
+        if (distanceToPlayer <= checkPlayerRange && (playerController.currentGoal == null || Vector3.Distance(playerController.currentGoal.transform.position, player.transform.position) > distanceToPlayer))
+            playerController.currentGoal = gameObject;
     }
 
     void zoneCleared()
     {
         foreach(GameObject agent in zoneAgents)
             agent.GetComponent<AIController>().repair();
+
     }
 }

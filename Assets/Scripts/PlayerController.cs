@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector]
     public bool isMuted;
+    [HideInInspector]
+    public GameObject currentGoal;
     public UnityEvent playerDie;
     public UnityEvent playerWin;
     private int goalReached;
