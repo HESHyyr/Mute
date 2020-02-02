@@ -15,6 +15,12 @@ public class zoneManager : MonoBehaviour
     private GameObject player;
     private PlayerController playerController;
 
+    private ParticleSystem baseParticles;
+    private ParticleSystem burstParticles;
+
+    public bool isActive = true;
+    private bool wasActive = true;
+
     [HideInInspector]
     public bool activated;
 
@@ -24,6 +30,9 @@ public class zoneManager : MonoBehaviour
         player = GameObject.Find("Player");
         playerController = player.GetComponent<PlayerController>();
         activated = false;
+
+        baseParticles = transform.Find("Particles").GetComponent<ParticleSystem>();
+        burstParticles = transform.Find("Burst").GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -32,6 +41,15 @@ public class zoneManager : MonoBehaviour
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
         if (distanceToPlayer <= checkPlayerRange && (playerController.currentGoal == null || Vector3.Distance(playerController.currentGoal.transform.position, player.transform.position) > distanceToPlayer))
             playerController.currentGoal = gameObject;
+
+        var emission = baseParticles.emission;
+        emission.enabled = isActive;
+
+        if (!isActive && wasActive)
+        {
+            wasActive = false;
+            burstParticles.Emit(200);
+        }
     }
 
     public void zoneCleared()

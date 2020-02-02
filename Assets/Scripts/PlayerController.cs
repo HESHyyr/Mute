@@ -117,9 +117,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.gameObject == currentGoal && !currentGoal.GetComponent<zoneManager>().activated && hasGoodTriangle)
+        if (collision.transform.gameObject == currentGoal && currentGoal.GetComponent<zoneManager>().isActive && hasGoodTriangle)
         {
-            currentGoal.SetActive(false);
+            currentGoal.GetComponent<zoneManager>().isActive = false;
             goalReached++;
         }
     }
