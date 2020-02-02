@@ -41,6 +41,7 @@ public class CameraControl : MonoBehaviour
 
         transform.LookAt(player.transform);
 
+        /*
         if (Input.GetKeyDown("8"))
         {
             FadingIn = true;
@@ -82,6 +83,6 @@ public class CameraControl : MonoBehaviour
 
             if (opacity >= 0.9) { FadingBright = false; }
         }
-
+        */
     }
 }
