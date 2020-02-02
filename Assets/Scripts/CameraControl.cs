@@ -13,11 +13,15 @@ public class CameraControl : MonoBehaviour
     private SpriteRenderer Dimmer;
     private SpriteRenderer Bright;
 
-    //public FadingUp;
-    //public FadingDown;
+    public bool FadingIn = false;
+    public bool FadingOut = false;
+    public bool FadingBright = false;
 
     [Range(0.01f, 1.0f)]
-    public float smoothSpeed = 1.0f;
+    public float smoothSpeed = 0.5f;
+
+    public float fadeSpeed = .1f;
+    private float opacity = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -36,17 +40,48 @@ public class CameraControl : MonoBehaviour
         transform.position = smoothedPosition;
 
         transform.LookAt(player.transform);
-    }
 
-    /*
-    public void FadeDark(float t)
-    {
-        Dimmer.color = new Color(Dimmer.color.r, Dimmer.color.g, Dimmer.color.b, 0.5f);
-    }
+        if (Input.GetKeyDown("8"))
+        {
+            FadingIn = true;
+            opacity = 1.0f;
+        }
+        if (Input.GetKeyDown("9"))
+        {
+            FadingOut = true;
+            opacity = 0.0f;
+        }
+        if (Input.GetKeyDown("0"))
+        {
+            FadingBright = true;
+            opacity = 0.0f;
+        }
 
-    public void FadeLight(float t)
-    {
-        Bright.color = new Color(Bright.color.r, Bright.color.g, Bright.color.b, 0.5f);
+
+        if (FadingIn)
+        {
+            Dimmer.color = new Color(Dimmer.color.r, Dimmer.color.g, Dimmer.color.b, opacity);
+
+            opacity = Mathf.Lerp(Dimmer.color.a, 0, fadeSpeed);
+            
+            if (opacity <= 0.1) { FadingIn = false; }
+        }
+        if (FadingOut)
+        {
+            Dimmer.color = new Color(Dimmer.color.r, Dimmer.color.g, Dimmer.color.b, opacity);
+
+            opacity = Mathf.Lerp(Dimmer.color.a, 1, fadeSpeed);
+
+            if (opacity >= 0.9) { FadingOut = false; }
+        }
+        if (FadingBright)
+        {
+            Bright.color = new Color(Bright.color.r, Bright.color.g, Bright.color.b, opacity);
+
+            opacity = Mathf.Lerp(Bright.color.a, 1, fadeSpeed);
+
+            if (opacity >= 0.9) { FadingBright = false; }
+        }
+
     }
-    */
 }

@@ -10,7 +10,7 @@ public class zoneManager : MonoBehaviour
 
     //Reference
     [SerializeField]
-    private GameObject zoneAgentsGroup;
+    private List<GameObject> zoneAgents;
     public GameObject zoneGoodTriangle;
     private GameObject player;
     private PlayerController playerController;
@@ -24,6 +24,8 @@ public class zoneManager : MonoBehaviour
     [HideInInspector]
     public bool activated;
 
+    private AudioSource BurstSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +35,8 @@ public class zoneManager : MonoBehaviour
 
         baseParticles = transform.Find("Particles").GetComponent<ParticleSystem>();
         burstParticles = transform.Find("Burst").GetComponent<ParticleSystem>();
+
+        BurstSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -49,13 +53,14 @@ public class zoneManager : MonoBehaviour
         {
             wasActive = false;
             burstParticles.Emit(200);
+            BurstSound.Play();
         }
     }
 
     public void zoneCleared()
     {
-        foreach(Transform agent in zoneAgentsGroup.transform)
-            agent.gameObject.GetComponent<AIController>().repair();
+        foreach(GameObject agent in zoneAgents)
+            agent.GetComponent<AIController>().repair();
         activated = true;
     }
 }
