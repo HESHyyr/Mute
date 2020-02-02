@@ -96,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxChaseRange: 8
   chaseDistance: 6
-  talkDistance: 2
+  talkDistance: 3
   generateEnemyChances: 1
   speakCD: 4
   wanderMode: Circle
