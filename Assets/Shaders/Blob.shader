@@ -112,26 +112,30 @@ Shader "Unlit/Blob"
             }
             fixed4 frag (v2f i) : SV_Target
             {
-                // sample the texture
+                //REFLECTION
                 float3 reflectionDir = reflect(-i.viewDir, i.normal);
                 reflectionDir = normalize(rotate_vector(reflectionDir, _EnvCubeRotation));
-
                 float4 envSample = texCUBE(_EnvCube, reflectionDir);
                 fixed4 reflectionCol = _ReflectionIntensity * envSample;
+
+                //FRESNEL
                 fixed fresnel = _FresnelBias + _FresnelIntensity * pow(saturate(1 - dot(i.viewDir, i.normal)), _FresnelPow);
                 fixed4 col = fresnel * reflectionCol;
 
-            
+                //GLOW 
                 float objnoise = snoise(i.lvert);
-
                 fixed glowfactor = _VerticalGlow * 10 * pow(sin(i.lvert.x),2)/ (0.9 * i.lvert.y - 0.2);
                 col = lerp(col, _HitColor, clamp(glowfactor * (1 + objnoise * 0.5* sin(0.05 * i.vertex.x + _GlowSpeed * _Time.y)),0,1));
+
+                //HIT 
                 col = lerp(col, _HitColor, _HitAmount * (1 + 0.5*sin(0.01 * i.vertex.x * i.normal.z + 10 * _Time.y)));
 
                 UNITY_APPLY_FOG(i.fogCoord, col);
-                GrayscaleAmount(col, _Saturation);
 
+                //MUTEMODE
+                GrayscaleAmount(col, _Saturation);
                 col += 0.2 * _Saturation * noise(0.6 * i.vertex.xy);
+
                 return col;
             }
             ENDCG
