@@ -58,6 +58,8 @@ public class SoundManager : MonoBehaviour
             AmbVol = MuteVolume;
             VoiceVol = MuteVolume;
 
+            Debug.Log(VoiceVol);
+
             if (!wasMuted)
             {
                 MuteStart.volume = MuteStaticVolume;

@@ -29,7 +29,7 @@ public class EnemySounds : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Voice.volume = MasterVol.VoiceVol;
     }
 
     public void playVoice(int triangleType)
@@ -44,9 +44,6 @@ public class EnemySounds : MonoBehaviour
             RandomLine = Random.Range(0, goodVoices.Length);
             Voice.clip = goodVoices[RandomLine];
         }
-
-        Voice.volume = MasterVol.VoiceVol;
-
         Voice.Play();
     }
 }
