@@ -113,7 +113,8 @@ Shader "Unlit/Blob"
                 float4 envSample = texCUBE(_EnvCube, reflectionDir);
                 fixed4 reflectionCol = _ReflectionIntensity * envSample;
                 fixed fresnel = _FresnelBias + _FresnelIntensity * pow(saturate(1 - dot(i.viewDir, i.normal)), _FresnelPow);
-                fixed4 col = fresnel * reflectionCol + 2 * _HitAmount * _HitColor * reflectionCol.b;
+                fixed4 col = fresnel * reflectionCol;
+                col = lerp(col, _HitColor, _HitAmount * (1 + 0.5* sin(0.05 * i.vertex.x + 10. * _Time.y)));
 
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 GrayscaleAmount(col, _Saturation);
