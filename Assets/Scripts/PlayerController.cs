@@ -41,8 +41,16 @@ public class PlayerController : MonoBehaviour
         if(rb.velocity.magnitude <= maxMoveSpeed)
             rb.AddForce(new Vector3(Input.GetAxis("Horizontal") * Time.deltaTime * movementForce, 0, Input.GetAxis("Vertical") * Time.deltaTime * movementForce));
 
+        
+        if (Input.GetKey("space"))
+        {
+            isMuted = true;
+        } else { isMuted = false; }
+
+        /*
         if (Input.GetKeyDown("space"))
         {
+            isMuted = true;
             if (isMuted)
             {
                 playerAudioListener.enabled = true;
@@ -53,7 +61,8 @@ public class PlayerController : MonoBehaviour
                 lastMuteTime = Time.time;
             }
             isMuted = !isMuted;
-        }
+        } 
+        */
 
         if (isMuted && Time.time - lastMuteTime >= muteStartDamageCD)
             takeDamage(1);

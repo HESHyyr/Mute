@@ -8,10 +8,10 @@ public class SoundManager : MonoBehaviour
     public AudioSource[] Soundtracks;
 
     public AudioSource MuteMode;
-    public bool Muted = false;
     [Range(0.0f, 1.0f)]
     public float MuteVolume = 0.1f;
 
+    private GameObject player;
 
     [Range(0.0f, 1.0f)]
     public float VolumeControl = 0.5f;
@@ -20,6 +20,7 @@ public class SoundManager : MonoBehaviour
     void Start()
     {
         Soundtracks = GetComponentsInChildren<AudioSource>();
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -36,12 +37,7 @@ public class SoundManager : MonoBehaviour
         VolumeControl = Mathf.Clamp01(VolumeControl);
 
 
-        if (Input.GetKey("8"))
-        {
-            Muted = true;
-        } else { Muted = false; }
-
-        if (Muted)
+        if (player.GetComponent<PlayerController>().isMuted)
         {
             MuteMode.volume = 1.0f;
             for (int i = 0; i < Soundtracks.Length; i++)
