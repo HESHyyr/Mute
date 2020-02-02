@@ -39,7 +39,7 @@ public class SoundManager : MonoBehaviour
 
         if (player.GetComponent<PlayerController>().isMuted)
         {
-            MuteMode.volume = 1.0f;
+            MuteMode.volume = 0.8f;
             for (int i = 0; i < Soundtracks.Length; i++)
             {
                 Soundtracks[i].volume = MuteVolume;
