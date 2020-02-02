@@ -31,7 +31,10 @@ Material:
     - _FresnelBias: 0.36
     - _FresnelIntensity: 2.75
     - _FresnelPow: 0.95
+    - _Glow: 0.277
+    - _GlowSpeed: 6.27
     - _HitAmount: 0
+    - _HitSpeed: 3.36
     - _NoiseAmp: 0
     - _NoiseFreq: 0.219
     - _ReflectionIntensity: 0.69
@@ -39,6 +42,7 @@ Material:
     - _SpikeAmp: 0
     - _SpikeDensity: 28.1
     - _SpikePow: 4
+    - _VerticalGlow: 0.091
     m_Colors:
     - _EnvCubeRotation: {r: 29.7, g: -30.6, b: -0.33, a: 1}
-    - _HitColor: {r: 0, g: 0, b: 0, a: 0}
+    - _HitColor: {r: 0.8726415, g: 0.9846167, b: 1, a: 0}

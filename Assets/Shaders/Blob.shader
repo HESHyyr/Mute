@@ -17,6 +17,8 @@ Shader "Unlit/Blob"
         _FresnelIntensity ("Fresnel Intensity", Range(0,10)) = 2.8
         _HitAmount ("Hit Amount", Range(0,1)) = 0
         _HitColor ("Hit Color", Color) = (0,0,0,0)
+        _GlowSpeed ("Glow Speed", Range(0,10)) = 10
+        _VerticalGlow ("Glow", Range(0,1)) = 0
     }
     SubShader
     {
@@ -41,6 +43,7 @@ Shader "Unlit/Blob"
             struct v2f
             {
                 float4 vertex : SV_POSITION;
+                float4 lvert : TEXCOORD3;
                 float4 normal : NORMAL;
                 float3 viewDir : TEXCOORD1;
                 UNITY_FOG_COORDS(2)
@@ -66,6 +69,8 @@ Shader "Unlit/Blob"
 
             float _HitAmount;
             float4 _HitColor;
+            float _VerticalGlow;
+            float _GlowSpeed;
 
             //Global params
             float _Saturation;
@@ -98,6 +103,7 @@ Shader "Unlit/Blob"
                 float transitionAmt = 1. - clamp(abs(_Saturation-0.5)/0.2, 0, 1.);
                 distortedVert += transitionAmt * ( float4(1,0,0,0) + sin(v.normal.x) );
 
+                o.lvert = distortedVert;
                 o.viewDir = normalize(ObjSpaceViewDir(distortedVert));
                 o.vertex = UnityObjectToClipPos(distortedVert);
                 o.normal = v.normal;
@@ -114,7 +120,13 @@ Shader "Unlit/Blob"
                 fixed4 reflectionCol = _ReflectionIntensity * envSample;
                 fixed fresnel = _FresnelBias + _FresnelIntensity * pow(saturate(1 - dot(i.viewDir, i.normal)), _FresnelPow);
                 fixed4 col = fresnel * reflectionCol;
-                col = lerp(col, _HitColor, _HitAmount * (1 + 0.5* sin(0.05 * i.vertex.x + 10. * _Time.y)));
+
+            
+                float objnoise = snoise(i.lvert);
+
+                fixed glowfactor = _VerticalGlow * 10 * pow(sin(i.lvert.x),2)/ (0.9 * i.lvert.y - 0.2);
+                col = lerp(col, _HitColor, clamp(glowfactor * (1 + objnoise * 0.5* sin(0.05 * i.vertex.x + _GlowSpeed * _Time.y)),0,1));
+                col = lerp(col, _HitColor, _HitAmount * (1 + 0.5*sin(0.01 * i.vertex.x * i.normal.z + 10 * _Time.y)));
 
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 GrayscaleAmount(col, _Saturation);
