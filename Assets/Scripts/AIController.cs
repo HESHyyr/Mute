@@ -39,7 +39,7 @@ public class AIController : MonoBehaviour
     [HideInInspector]
     public int triangleType;
     private int damageDealt;
-    private enum agentStates { idle, chase, backoff, backToStartPosition};
+    private enum agentStates { idle, chase, backoff, backToStartPosition, backToStartRotation};
     private agentStates agentState;
     private NavMeshAgent agent;
     private GameObject player;
@@ -129,7 +129,11 @@ public class AIController : MonoBehaviour
             else
             {
                 if (agentState == agentStates.chase)
+                {
+                    agent.SetDestination(startPosition);
                     agentState = agentStates.backToStartPosition;
+                }
+
             }
 
 
@@ -172,6 +176,7 @@ public class AIController : MonoBehaviour
 
                     case agentStates.backToStartPosition:
                         StartCoroutine(WaitForResetRotation());
+                        agentState = agentStates.backToStartRotation;
                         break;
 
                     default:
@@ -182,6 +187,7 @@ public class AIController : MonoBehaviour
 
             if (isResetingRotation)
             {
+                Debug.Log(slerpTimer);
                 transform.rotation = Quaternion.Slerp(previousRotation, startRotation, slerpTimer);
                 slerpTimer += resetRotationSpeed;
             }
@@ -208,7 +214,7 @@ public class AIController : MonoBehaviour
         previousRotation = transform.rotation;
         isResetingRotation = true;
         slerpTimer = 0.0f;
-        yield return transform.rotation.Equals(startRotation);
+        yield return new WaitUntil (() => Quaternion.Angle(transform.rotation, startRotation) <= 1e-3f);
         isResetingRotation = false;
         agentState = agentStates.idle;
     }

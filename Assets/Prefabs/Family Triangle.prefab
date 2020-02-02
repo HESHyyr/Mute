@@ -100,7 +100,7 @@ MonoBehaviour:
   generateEnemyChances: 0.8
   speakCD: 4
   wanderMode: Circle
-  resetRotationSpeed: 0.1
+  resetRotationSpeed: 0.02
   centerOffset: {x: 2, y: 0, z: 0}
   rotationStep: 1
   circleRotationRadius: 2
