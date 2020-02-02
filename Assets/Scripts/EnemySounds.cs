@@ -27,6 +27,7 @@ public class EnemySounds : MonoBehaviour
 
         if(transform.parent.gameObject.GetComponent<AIController>().triangleType == 1)
         {
+            Debug.Log("???");
             RandomLine = Random.Range(0, goodVoices.Length);
             Voice.loop = true;
             Voice.clip = goodVoices[RandomLine];
@@ -46,6 +47,11 @@ public class EnemySounds : MonoBehaviour
         {
             RandomLine = Random.Range(0, badVoices.Length);
             Voice.clip = badVoices[RandomLine];
+        }
+        else
+        {
+            RandomLine = Random.Range(0, goodVoices.Length);
+            Voice.clip = goodVoices[RandomLine];
         }
         Voice.Play();
     }

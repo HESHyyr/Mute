@@ -287,6 +287,21 @@ PrefabInstance:
       propertyPath: zoneGoodTriangle
       value: 
       objectReference: {fileID: 855540198}
+    - target: {fileID: 4843028099483661957, guid: d86789f097245438cbf9cc4d24376f70,
+        type: 3}
+      propertyPath: checkGoodTriangleRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469397682132194903, guid: d86789f097245438cbf9cc4d24376f70,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 584c2deaefffaf34d834fe55fbe4ab2d, type: 3}
+    - target: {fileID: 8469397682209778818, guid: d86789f097245438cbf9cc4d24376f70,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b2478ac3e2388a749886dda5c689881b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d86789f097245438cbf9cc4d24376f70, type: 3}
 --- !u!1 &104873429 stripped
@@ -2200,6 +2215,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4736272078321313262, guid: 122994328e13641788d8ac385c3a277a,
+        type: 3}
+      propertyPath: goodVoices.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 2932fa938f31f634e9e1eb4517947c17, type: 3}
     - target: {fileID: 7472974121271774665, guid: 122994328e13641788d8ac385c3a277a,
         type: 3}
       propertyPath: centerOffset.x
@@ -2224,6 +2244,11 @@ PrefabInstance:
         type: 3}
       propertyPath: generateEnemyChances
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7472974121271774665, guid: 122994328e13641788d8ac385c3a277a,
+        type: 3}
+      propertyPath: speakCD
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 122994328e13641788d8ac385c3a277a, type: 3}
@@ -2379,6 +2404,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 328319122}
     m_Modifications:
+    - target: {fileID: 2396297052471786111, guid: 2709ce5e5be4743fabc0d2e87b102026,
+        type: 3}
+      propertyPath: goodVoices.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 3e5f64c4b05fd0e4bb17939a9ad9d31e, type: 3}
     - target: {fileID: 4391128197327702602, guid: 2709ce5e5be4743fabc0d2e87b102026,
         type: 3}
       propertyPath: wanderMode
@@ -2388,6 +2418,11 @@ PrefabInstance:
         type: 3}
       propertyPath: generateEnemyChances
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4391128197327702602, guid: 2709ce5e5be4743fabc0d2e87b102026,
+        type: 3}
+      propertyPath: speakCD
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5751526370717209409, guid: 2709ce5e5be4743fabc0d2e87b102026,
         type: 3}
@@ -4383,6 +4418,16 @@ PrefabInstance:
       propertyPath: zoneAgentsGroup
       value: 
       objectReference: {fileID: 1266334966}
+    - target: {fileID: 4843028099483661957, guid: d86789f097245438cbf9cc4d24376f70,
+        type: 3}
+      propertyPath: checkGoodTriangleRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469397682209778818, guid: d86789f097245438cbf9cc4d24376f70,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d86789f097245438cbf9cc4d24376f70, type: 3}
 --- !u!4 &1220303332 stripped
@@ -5013,6 +5058,26 @@ PrefabInstance:
       propertyPath: zoneAgentsGroup
       value: 
       objectReference: {fileID: 609024599}
+    - target: {fileID: 4843028099483661957, guid: d86789f097245438cbf9cc4d24376f70,
+        type: 3}
+      propertyPath: checkGoodTriangleRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469397682132194903, guid: d86789f097245438cbf9cc4d24376f70,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 47d4cb8b587ba9846a82d92d99650820, type: 3}
+    - target: {fileID: 8469397682209778818, guid: d86789f097245438cbf9cc4d24376f70,
+        type: 3}
+      propertyPath: MaxDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8469397682209778818, guid: d86789f097245438cbf9cc4d24376f70,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 781e6ff2fe9eec649a6455f2386eded3, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d86789f097245438cbf9cc4d24376f70, type: 3}
 --- !u!4 &1537444299 stripped
@@ -5447,7 +5512,7 @@ PrefabInstance:
         type: 3}
       propertyPath: goodVoices.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: f977c50a3b46e30468fc81b2929f8878, type: 3}
+      objectReference: {fileID: 8300000, guid: 7063c4d9c64eaac4281a2feab7e7f98d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e984897e7a08149adbb40c635e3a2623, type: 3}
 --- !u!1001 &1764552060
