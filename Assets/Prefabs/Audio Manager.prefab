@@ -46,6 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Soundtracks: []
+  MuteStaticVolume: 0.5
+  MuteStart: {fileID: 0}
+  MuteStop: {fileID: 0}
   MuteMode: {fileID: 0}
   MuteVolume: 0.05
   VolumeControl: 0.3

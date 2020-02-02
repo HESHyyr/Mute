@@ -5,7 +5,8 @@ using UnityEngine;
 public class EnemySounds : MonoBehaviour
 {
 
-    public AudioSource[] Voices;
+    public AudioClip[] Voices;
+    public AudioSource Voice;
 
     public int RandomLine;
     public float WaitTime = 4.0f;
@@ -21,7 +22,7 @@ public class EnemySounds : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Voices = GetComponents<AudioSource>();
+        Voice = GetComponent<AudioSource>();
         player = GameObject.Find("Player");
     }
 
@@ -32,17 +33,18 @@ public class EnemySounds : MonoBehaviour
         {
             WaitTimer = WaitTime;
             RandomLine = Random.Range(0, Voices.Length);
+            Voice.clip = Voices[RandomLine];
 
             if (player.GetComponent<PlayerController>().isMuted)
             {
-                Voices[RandomLine].volume = MuteVolume;
+                Voice.volume = MuteVolume;
             }
             else
             {
-                Voices[RandomLine].volume = VolumeControl;
+                Voice.volume = VolumeControl;
             }
             
-            Voices[RandomLine].Play();
+            Voice.Play();
         }
         else
         {

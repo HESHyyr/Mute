@@ -7,9 +7,14 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource[] Soundtracks;
 
+    [Range(0.01f, 1.0f)]
+    public float MuteStaticVolume;
+    public AudioSource MuteStart;
+    public AudioSource MuteStop;
     public AudioSource MuteMode;
-    [Range(0.0f, 1.0f)]
+    [Range(0.01f, 1.0f)]
     public float MuteVolume = 0.1f;
+    private bool wasMuted;
 
     private GameObject player;
 
@@ -39,7 +44,14 @@ public class SoundManager : MonoBehaviour
 
         if (player.GetComponent<PlayerController>().isMuted)
         {
-            MuteMode.volume = 0.8f;
+            if (!wasMuted)
+            {
+                MuteStart.volume = MuteStaticVolume;
+                MuteStart.Play();
+                wasMuted = true;
+            }
+
+            MuteMode.volume = MuteStaticVolume;
             for (int i = 0; i < Soundtracks.Length; i++)
             {
                 Soundtracks[i].volume = MuteVolume;
@@ -50,6 +62,13 @@ public class SoundManager : MonoBehaviour
             for (int i = 0; i < Soundtracks.Length; i++)
             {
                 Soundtracks[i].volume = VolumeControl;
+            }
+
+            if (wasMuted)
+            {
+                MuteStop.volume = MuteStaticVolume;
+                MuteStop.Play();
+                wasMuted = false;
             }
         }      
     }
