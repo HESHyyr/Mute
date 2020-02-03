@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HeshScene/HeshScene.unity
     guid: 85fe0c88e98db40f894dd77de0cf8de6
   - enabled: 1
