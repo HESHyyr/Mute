@@ -65,6 +65,7 @@ public class zoneManager : MonoBehaviour
                 isActive = false;
                 zoneCleared();
                 playerController.activateOneShrine();
+                GetComponent<AudioSource>().Play();
             }
         }
 
@@ -72,8 +73,8 @@ public class zoneManager : MonoBehaviour
 
     public void zoneCleared()
     {
-        foreach(GameObject agent in zoneAgentsGroup.transform)
-            agent.GetComponent<AIController>().repair();
+        foreach(Transform agent in zoneAgentsGroup.transform)
+            agent.gameObject.GetComponent<AIController>().repair();
         activated = true;
     }
 }
